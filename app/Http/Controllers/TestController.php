@@ -8,12 +8,11 @@ class TestController
 {
     public function showTest()
     {
-        return json_encode(
-            Test::query()->find(1)
+        return response()->json(
+            auth()->user()->tests()
                 ->with('questions')
                 ->with('questions.answers')
-                ->get(),
-            JSON_UNESCAPED_UNICODE
+                ->get()
         );
     }
 }
