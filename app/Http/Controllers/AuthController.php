@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -62,7 +63,10 @@ class AuthController extends Controller
      */
     public function logout(Request $request): JsonResponse
     {
-        auth()->logout();
+        if (!auth::check()) {
+            return response()->json('user not logged in', 200);
+        }
+        auth()->user()->token()->revoke();
         return response()->json(['logged out'=> auth()->user()], 200);
     }
 }
