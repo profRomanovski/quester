@@ -18,7 +18,7 @@ class Test extends Model
     use HasFactory;
 
     const ID = 'id';
-    const NAME = 'name';
+    public const NAME = 'name';
     const USER_ID = 'user_id';
     const COMPLETED = 'completed';
 
