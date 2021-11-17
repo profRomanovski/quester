@@ -51,7 +51,9 @@ class AuthController extends Controller
             $user = auth()->user();
 
             $token = $user->createToken('Quester')->accessToken;
-            return response()->json(['token' => $token, 'user'=> auth()->user()], 200);
+            $user = auth()->user();
+            $user->token = $token;
+            return response()->json(['user'=>$user ], 200);
         } else {
             return response()->json(['error' => 'Unauthorised'], 401);
         }
