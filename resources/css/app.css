@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.pop-up-message{
+    @apply p-4 max-w-sm mx-auto bg-white rounded-xl shadow-md flex items-center space-x-4
+}
+.pop-up-message-image{
+    @apply flex-shrink-0
+}
+.pop-up-message-title{
+    @apply text-xl font-medium text-black
+}
+.pop-up-message-text{
+    @apply text-gray-500
+}
