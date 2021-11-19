@@ -12,7 +12,7 @@
     </div>
     <div>
         <div class="pop-up-message-title">ChitChat</div>
-        <div class="pop-up-message-text">You have a new message!</div>
+        <div class="pop-up-message-text">You have a news message!</div>
     </div>
 </div>
 
