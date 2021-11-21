@@ -10,4 +10,9 @@ use Illuminate\Routing\Controller as BaseController;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
+    public function viewWithMessage($view, $text='', $content=''){
+        $message = true;
+        return view($view, compact('message', 'text', 'content'));
+    }
 }

@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Models\Test;
 use Illuminate\Http\JsonResponse;
 
-class TestController
+class TestController extends Controller
 {
 
     /**
