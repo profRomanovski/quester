@@ -32,7 +32,7 @@ class AuthController extends Controller
              */
             $user = auth()->user();
             $user->createToken('Quester')->accessToken;
-            //return redirect()
+            return redirect("home");
         }else{
             return $this->viewWithMessage('layouts.login','Warning!','Login or password is incorrect');
         }
