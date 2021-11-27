@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,4 +25,9 @@ Route::post('/login-action', [AuthController::class, 'loginAction'])->name('logi
 
 Route::middleware('auth:web')->group(function () {
     Route::get('/home', [HomeController::class, 'home'])->name('home');
+    Route::get('/test-view', [TestController::class, 'testView'])->name('test.view');
+    Route::get('/test-create', [TestController::class, 'testCreate'])->name('test.create');
+    Route::post('/test-create-action', [TestController::class, 'testCreateAction'])->name('test.create.action');
+
+
 });

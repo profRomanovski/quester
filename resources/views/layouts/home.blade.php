@@ -2,23 +2,7 @@
 @section('content')
     <div class="min-h-screen flex flex-col items-center">
         <div id="home-content" class="w-3/5 h-screen bg-background_form p-5 rounded-xl">
-            <div id="header" class="flex flex-row mb-2">
-                <div class="bg-background_details px-2 py-1 rounded-xl">
-                    <a href="{{route('login')}}" class="text-xl">
-                        <img class="h-8 w-8" src="{{secure_asset('img/main_page.svg') }}" alt="Add">
-                    </a>
-                </div>
-                <div class="bg-background_details px-2 py-1 rounded-xl ml-auto">
-                    <a href="{{route('login')}}" class="text-2xl">
-                        <img class="h-8 w-8" src="{{secure_asset('img/add.svg') }}" alt="Add">
-                    </a>
-                </div>
-                <div class="bg-background_details px-2 py-1 rounded-xl ml-10" >
-                    <a href="{{route('login')}}" class="text-xl">
-                        <img class="h-8 w-8" src="{{secure_asset('img/logout.svg') }}" alt="Add">
-                    </a>
-                </div>
-            </div>
+            @include('components.header')
             <div class="main-content">
                 <div class="text-white text-3xl text-center">
                     My tests
@@ -34,8 +18,12 @@
                                 <img class="h-8 ml-2 w-8" src="{{secure_asset('img/check.svg') }}" alt="Add">
                             </div>
                             <div class="ml-auto flex flex-row">
+                                <a href="{{route('test.view', ['id'=>$test->getId()])}}">
                                 <img class="h-8 ml-2 w-8" src="{{secure_asset('img/statistic.svg') }}" alt="Add">
+                                </a>
+                                <a href="{{route('test.view', ['id'=>$test->getId()])}}">
                                 <img class="h-8 ml-2 w-8" src="{{secure_asset('img/view.svg') }}" alt="Add">
+                                </a>
                                 <img class="h-8 ml-2 w-8" src="{{secure_asset('img/edit.svg') }}" alt="Add">
                             </div>
                         </div>

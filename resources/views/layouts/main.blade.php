@@ -4,6 +4,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Quester</title>
     <link href="{{ secure_asset('css/app.css') }}" rel="stylesheet">
+    <script src="{{secure_asset('js/app.js')}}"></script>
+
 </head>
 <body>
 <div class="content bg-background">
@@ -12,6 +14,5 @@
     @endif
     @yield('content')
 </div>
-<script src="{{secure_asset('js/app.js')}}"></script>
 </body>
 </html>

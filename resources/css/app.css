@@ -14,3 +14,53 @@
 .pop-up-message-text{
     @apply text-gray-500
 }
+
+/* The container */
+.answer-container {
+    display: block;
+    position: relative;
+    user-select: none;
+}
+
+.answer-container input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.checkmark {
+    position: absolute;
+    top: 4px;
+    left: -35px;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+    border-radius: 50%;
+}
+
+.answer-container:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+
+.answer-container input:checked ~ .checkmark {
+    background-color: #65B8B0;
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.answer-container input:checked ~ .checkmark:after {
+    display: block;
+}
+
+.answer-container .checkmark:after {
+    top: 9px;
+    left: 9px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: white;
+}
