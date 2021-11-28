@@ -24,7 +24,9 @@
                                 <a href="{{route('test.view', ['id'=>$test->getId()])}}">
                                 <img class="h-8 ml-2 w-8" src="{{secure_asset('img/view.svg') }}" alt="Add">
                                 </a>
+                                <a href="{{route('test.edit', ['id'=>$test->getId()])}}">
                                 <img class="h-8 ml-2 w-8" src="{{secure_asset('img/edit.svg') }}" alt="Add">
+                                </a>
                             </div>
                         </div>
                     @endforeach

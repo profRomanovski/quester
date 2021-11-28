@@ -32,7 +32,7 @@
         $('#addNewQuestion').click(() => {
             q = q + 1;
             $('.main-content').append(`
-                <x-question name="q-${q}"></x-question>
+                <x-question name="q-${q}" value=""></x-question>
             `)
             a = 1;
             $('.addNewAnswer').last().click(elem => {
@@ -40,7 +40,7 @@
                     .parent('.question')
                     .find('.question-content')
                     .append(`
-                    <x-answer name="a-${q}-${a}" q="${q}"></x-answer>
+                    <x-answer name="a-${q}-${a}" q="${q}" value="" checked=""></x-answer>
                     `)
                 $('.deleteAnswer').click(elem => {
                     $(elem.currentTarget).parent().remove();
