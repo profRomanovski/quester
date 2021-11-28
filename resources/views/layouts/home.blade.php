@@ -5,7 +5,7 @@
             @include('components.header')
             <div class="main-content">
                 <div class="text-white text-3xl text-center">
-                    My tests
+                    Мої тести
                 </div>
                 @isset($tests)
                     @foreach($tests as $test)
