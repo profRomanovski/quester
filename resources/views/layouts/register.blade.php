@@ -4,7 +4,7 @@
         <div class="logo flex justify-center mb-6 bg-white rounded-xl p-1">
             <img class="h-36 w-36" src="{{secure_asset('img/logo.png') }}" alt="Logo">
         </div>
-        <form class="max-w-[500px] bg-background_form p-5 rounded-xl" action="{{route('login.action')}}" method="POST">
+        <form class="max-w-[500px] bg-background_form p-5 rounded-xl" action="{{route('register.action')}}" method="POST">
             @csrf
             <div class="form-items">
                 <div class="flex justify-between items-center mb-2">
@@ -19,11 +19,14 @@
                     </label>
                     <input id="password" name="password" type="password" class="rounded p-2" placeholder="Введіть пароль">
                 </div>
+                <div class="flex justify-between items-center mb-2">
+                    <label for="name" class="block mr-5 text-xl text-gray-800">
+                        Ім'я:
+                    </label>
+                    <input id="name" name="name" type="text" class="rounded p-2" placeholder="Введіть ім'я">
+                </div>
                 <div class="flex justify-end flex-col">
-                    <button type="submit" class="px-2 py-1 mt-1 bg-background_details rounded-xl text-white min-w-full hover:bg-orange-lighter outline-none tablet:min-w-1/2 tablet: ">Ввійти</button>
-                    <a href="{{route('register')}}">
-                        <button type="button" class="px-2 py-1 mt-1 bg-background_details rounded-xl text-white min-w-full hover:bg-orange-lighter outline-none tablet:min-w-1/2 tablet: ">Реєстрація</button>
-                    </a>
+                    <button type="submit" class="px-2 py-1 mt-1 bg-background_details rounded-xl text-white min-w-full hover:bg-orange-lighter outline-none tablet:min-w-1/2 tablet: ">Реєстрація</button>
                 </div>
             </div>
         </form>

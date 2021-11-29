@@ -20,4 +20,13 @@ class HomeController extends Controller
         return view('layouts.general',compact('tests'));
     }
 
+    public function testSearch(Request $request)
+    {
+        $search = $request->post('search');
+        $tests = Test::query()
+            ->where('name', 'like', '%'.$search.'%')
+            ->get();
+        return view('layouts.general',compact('tests', 'search'));
+    }
+
 }

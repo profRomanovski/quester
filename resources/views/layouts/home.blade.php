@@ -16,7 +16,7 @@
                             <div class="ml-auto flex flex-row">
                                 <span class="text-white mr-1 text-2xl">{{$test->getCompleted()}}</span>
                                 <img class="h-8 mr-4 w-8" src="{{secure_asset('img/check.svg') }}" alt="Add">
-                                <a href="{{route('test.view', ['id'=>$test->getId()])}}">
+                                <a href="{{route('test.statistic', ['id'=>$test->getId()])}}">
                                 <img class="h-8 ml-2 w-8" src="{{secure_asset('img/statistic.svg') }}" alt="Add">
                                 </a>
                                 <a href="{{route('test.view', ['id'=>$test->getId()])}}">
@@ -24,6 +24,9 @@
                                 </a>
                                 <a href="{{route('test.edit', ['id'=>$test->getId()])}}">
                                 <img class="h-8 ml-2 w-8" src="{{secure_asset('img/edit.svg') }}" alt="Add">
+                                </a>
+                                <a href="{{route('test.delete', ['id'=>$test->getId()])}}">
+                                    <img class="h-8 ml-2 w-8" src="{{secure_asset('img/delete.svg') }}" alt="Add">
                                 </a>
                             </div>
                         </div>

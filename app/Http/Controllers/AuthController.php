@@ -9,7 +9,34 @@ class AuthController extends Controller
 {
     public function login()
     {
+        auth()->logout();
         return view('layouts.login');
+    }
+
+    public function register()
+    {
+        return view('layouts.register');
+    }
+
+    public function registerAction(Request $request)
+    {
+        $this->validate($request, [
+            'name' => 'required|min:4',
+            'email' => 'required|email',
+            'password' => 'required|min:8',
+        ]);
+
+        /**
+         * @var User $user
+         */
+        $user = User::query()->create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password)
+        ]);
+
+        $user->createToken('Quester')->accessToken;
+        return redirect()->route('home');
     }
 
     public function loginAction(Request $request){

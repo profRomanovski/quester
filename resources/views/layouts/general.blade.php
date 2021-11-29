@@ -3,7 +3,19 @@
     <div class="min-h-screen flex flex-col items-center">
         <div id="home-content" class="w-3/5 h-screen bg-background_form p-5 rounded-xl">
 
-            <div id="header" class="flex flex-row mb-2">
+            <div id="header" class="flex flex-row mb-2 items-center">
+                <form  action="{{route('test.search')}}" method="POST"
+                       class="ml-10 rounded-xl flex mt-2 flex-row bg-white">
+                    @csrf
+                    @isset($search)
+                    <input type="text" name="search" value="{{$search}}" placeholder="Тест..." class="rounded-xl pl-2">
+                    @else
+                        <input type="text" name="search" placeholder="Тест..." class="rounded-xl pl-2">
+                    @endif
+                    <button type="submit" class="pr-1">
+                        <img class="h-8 w-8" src="{{secure_asset('img/search.svg') }}" alt="Add">
+                    </button>
+                </form>
                 <div class="bg-background_details px-2 py-1 rounded-xl ml-auto">
                     <a href="{{route('home')}}" class="text-2xl">
                         <img class="h-8 w-8" src="{{secure_asset('img/home.svg') }}" alt="Add">

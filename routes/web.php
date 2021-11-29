@@ -21,7 +21,9 @@ Route::get('/', function () {
 });
 
 Route::get('/login', [AuthController::class, 'login'])->name('login');
+Route::get('/register', [AuthController::class, 'register'])->name('register');
 Route::post('/login-action', [AuthController::class, 'loginAction'])->name('login.action');
+Route::post('/register-action', [AuthController::class, 'registerAction'])->name('register.action');
 Route::get('/', [HomeController::class, 'general'])->name('general');
 
 Route::middleware('auth:web')->group(function () {
@@ -36,5 +38,12 @@ Route::middleware('auth:web')->group(function () {
     Route::get('/test-complete', [TestController::class, 'testComplete'])->name('test.complete');
     Route::post('/test-complete-action', [TestController::class, 'testCompleteAction'])->name('test.complete.action');
     Route::get('/test-complete-result', [TestController::class, 'testCompleteResult'])->name('test.complete.result');
+    Route::get('/test-statistic', [TestController::class, 'testStatistic'])->name('test.statistic');
+    Route::get('/test-statistic-delete', [TestController::class, 'testStatisticDelete'])->name('test.statistic.delete');
+    Route::post('/test-statistic-search', [TestController::class, 'testStatisticSearch'])->name('test.statistic.search');
+    Route::post('/test-search', [HomeController::class, 'testSearch'])->name('test.search');
+    Route::get('/test-delete', [TestController::class, 'testDelete'])->name('test.delete');
+    Route::get('/user-statistic', [TestController::class, 'userStatistic'])->name('user.statistic');
+    Route::get('/user-statistic-delete', [TestController::class, 'userStatisticDelete'])->name('user.statistic.delete');
 
 });

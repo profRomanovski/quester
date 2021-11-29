@@ -2,15 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\TestHelper;
 use App\Models\Answer;
 use App\Models\Question;
 use App\Models\Result;
 use App\Models\Test;
 use App\Models\TestComplete;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class TestController extends Controller
 {
+    /**
+     * @var TestHelper
+     */
+    protected $helper;
+
+    public function __construct(TestHelper $helper)
+    {
+        $this->helper = $helper;
+    }
+
     public function testView(Request $request)
     {
         $id = $request->get('id');
@@ -79,7 +91,7 @@ class TestController extends Controller
             'user_id' => auth()->user()->getId(),
             'completed' => 0
         ]);
-        $this->saveTestContent($test, $postData);
+       return $this->saveTestContent($test, $postData);
     }
 
     public function testEdit(Request $request)
@@ -165,19 +177,7 @@ class TestController extends Controller
                 }
             }
         }
-        $resultLabel = "";
-        $results = Result::query()->where('test_id','=',$test->getId())->get();
-        foreach ($results as $result){
-            if($result->getCondition() === 1 && $resultMark > $result->getMark()){
-                $resultLabel = $result->getValue();
-            }
-            if($result->getCondition() === 2 &&  $resultMark < $result->getMark()){
-                $resultLabel = $result->getValue();
-            }
-            if($result->getCondition() === 0 && $result->getMark() === $resultMark){
-                $resultLabel = $result->getValue();
-            }
-        }
+        $resultLabel = $this->helper->getResultLabel($test, $resultMark);
         TestComplete::query()->create([
             'test_id' => $test->getId(),
             'user_id' => auth()->user()->id,
@@ -186,5 +186,80 @@ class TestController extends Controller
         $test->update(['completed' => $test->getCompleted()+1]);
         return view('layouts.test-complete-result',
         compact('questionCount', 'resultLabel', 'resultMark'));
+    }
+
+    public function testStatistic(Request $request){
+        $id = $request->get('id');
+        $test = Test::query()->find($id);
+        $questions = Question::query()
+            ->where('test_id', '=',$test->getId())->count();
+        $results = TestComplete::query()
+            ->where('test_id', '=', $test->getId())
+            ->with('user')
+            ->get();
+        $helper = $this->helper;
+        return view('layouts.test-statistic',
+            compact('test', 'results', 'questions', 'helper'));
+    }
+
+    public function testStatisticDelete(Request $request)
+    {
+        $id = $request->get('id');
+        $test = Test::query()->find($id);
+        TestComplete::query()
+            ->where('test_id','=',$test->getId())
+            ->delete();
+        return redirect()->route('test.statistic',['id'=>$test->getId()]);
+    }
+
+    public function testStatisticSearch(Request $request)
+    {
+        $id = $request->post('test-id');
+        $test = Test::query()->find($id);
+        $search = $request->post('search');
+        $questions = Question::query()
+            ->where('test_id', '=',$test->getId())->count();
+        $userIds = [];
+        $usersName = User::query()
+            ->where('name', 'like', '%'.$search.'%')
+            ->orWhere('email','like', '%'.$search.'%')
+            ->get();
+        foreach ($usersName as $user){
+            if(!in_array($user->getId(), $userIds))
+                array_push($userIds, $user->getId());
+        }
+        $results = TestComplete::query()
+            ->where('test_id', '=', $test->getId())
+            ->whereIn('user_id', $userIds)
+            ->with('user')
+            ->get();
+        $helper = $this->helper;
+        return view('layouts.test-statistic',
+            compact('test', 'results', 'questions', 'helper'));
+    }
+
+    public function testDelete(Request $request){
+        $id = $request->get('id');
+        Test::query()->where('id','=', $id)->delete();
+        return redirect()->route('home');
+    }
+
+    public function userStatistic()
+    {
+        $results = TestComplete::query()
+            ->where('user_id', '=', auth()->user()->id)
+            ->with('test')
+            ->get();
+        $helper = $this->helper;
+        return view('layouts.user-statistic',
+            compact( 'results', 'helper'));
+    }
+
+    public function userStatisticDelete()
+    {
+        TestComplete::query()
+            ->where('user_id','=',auth()->user()->id)
+            ->delete();
+        return redirect()->route('user.statistic');
     }
 }

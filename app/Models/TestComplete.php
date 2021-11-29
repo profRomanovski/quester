@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
  * @property int $result
@@ -65,4 +66,19 @@ class TestComplete extends Model
         return $this->result;
     }
 
+    /**
+     * @return HasOne
+     */
+    public function user(): HasOne
+    {
+        return $this->hasOne(User::class, 'id','user_id');
+    }
+
+    /**
+     * @return HasOne
+     */
+    public function test(): HasOne
+    {
+        return $this->hasOne(Test::class, 'id','test_id');
+    }
 }
