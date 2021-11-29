@@ -6,6 +6,7 @@ use App\Models\Answer;
 use App\Models\Question;
 use App\Models\Result;
 use App\Models\Test;
+use App\Models\TestComplete;
 use Illuminate\Http\Request;
 
 class TestController extends Controller
@@ -137,5 +138,53 @@ class TestController extends Controller
             ]);
         }
         return redirect()->route('test.result',['id'=>$test->getId()]);
+    }
+
+    public function testComplete(Request $request)
+    {
+        $id = $request->get('id');
+        $test = Test::query()->find($id);
+        $questions = Question::query()->
+        where('test_id', '=', $test->getId())->
+        with('answers')->get();
+        return view('layouts.test-complete', compact('test', 'questions'));
+    }
+
+    public function testCompleteAction(Request $request)
+    {
+        $testId = $request->post('test-id');
+        $test = Test::query()->find($testId);
+        $questionCount = Question::query()
+            ->where('test_id', '=',$test->getId())->count();
+        $resultMark = 0;
+        foreach ($request->all() as $key => $data){
+            if($key[0] === 'r'){
+                $answer = Answer::query()->find($data);
+                if($answer->getIsCorrect() === 1){
+                    $resultMark = $resultMark+1;
+                }
+            }
+        }
+        $resultLabel = "";
+        $results = Result::query()->where('test_id','=',$test->getId())->get();
+        foreach ($results as $result){
+            if($result->getCondition() === 1 && $resultMark > $result->getMark()){
+                $resultLabel = $result->getValue();
+            }
+            if($result->getCondition() === 2 &&  $resultMark < $result->getMark()){
+                $resultLabel = $result->getValue();
+            }
+            if($result->getCondition() === 0 && $result->getMark() === $resultMark){
+                $resultLabel = $result->getValue();
+            }
+        }
+        TestComplete::query()->create([
+            'test_id' => $test->getId(),
+            'user_id' => auth()->user()->id,
+            'result' => $resultMark
+        ]);
+        $test->update(['completed' => $test->getCompleted()+1]);
+        return view('layouts.test-complete-result',
+        compact('questionCount', 'resultLabel', 'resultMark'));
     }
 }

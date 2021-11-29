@@ -2,7 +2,17 @@
 @section('content')
     <div class="min-h-screen flex flex-col items-center">
     <div id="test-content" class="w-3/5 min-h-screen bg-background_form p-5 rounded-xl">
-    @include('components.header')
+        <div id="header" class="flex flex-row mb-2">
+            <div class="bg-background_details px-2 py-1 rounded-xl">
+                <a href="{{route('home')}}" class="text-xl">
+                    <img class="h-8 w-8" src="{{secure_asset('img/main_page.svg') }}" alt="Add">
+                </a>
+            </div>
+            <div class=" ml-10 p-1 text-xl mt-2 rounded-xl">
+                <span class="text-white">Перегляд тестування</span>
+            </div>
+        </div>
+
         <div class="main-content">
             <div class="text-white text-3xl text-center">
                 {{$test->getName()}}

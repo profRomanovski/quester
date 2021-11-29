@@ -22,6 +22,7 @@ Route::get('/', function () {
 
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/login-action', [AuthController::class, 'loginAction'])->name('login.action');
+Route::get('/', [HomeController::class, 'general'])->name('general');
 
 Route::middleware('auth:web')->group(function () {
     Route::get('/home', [HomeController::class, 'home'])->name('home');
@@ -32,6 +33,8 @@ Route::middleware('auth:web')->group(function () {
     Route::post('/test-edit-action', [TestController::class, 'testEditAction'])->name('test.edit.action');
     Route::get('/test-result', [TestController::class, 'testResult'])->name('test.result');
     Route::post('/test-result-action', [TestController::class, 'testResultAction'])->name('test.result.action');
-
+    Route::get('/test-complete', [TestController::class, 'testComplete'])->name('test.complete');
+    Route::post('/test-complete-action', [TestController::class, 'testCompleteAction'])->name('test.complete.action');
+    Route::get('/test-complete-result', [TestController::class, 'testCompleteResult'])->name('test.complete.result');
 
 });

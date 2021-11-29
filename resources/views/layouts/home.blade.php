@@ -13,11 +13,9 @@
                             <div class="text-xl text-white">
                                 {{$test->getName()}}
                             </div>
-                            <div class="ml-10 flex flex-row">
-                                <span class="text-white text-2xl">{{$test->getCompleted()}}</span>
-                                <img class="h-8 ml-2 w-8" src="{{secure_asset('img/check.svg') }}" alt="Add">
-                            </div>
                             <div class="ml-auto flex flex-row">
+                                <span class="text-white mr-1 text-2xl">{{$test->getCompleted()}}</span>
+                                <img class="h-8 mr-4 w-8" src="{{secure_asset('img/check.svg') }}" alt="Add">
                                 <a href="{{route('test.view', ['id'=>$test->getId()])}}">
                                 <img class="h-8 ml-2 w-8" src="{{secure_asset('img/statistic.svg') }}" alt="Add">
                                 </a>
